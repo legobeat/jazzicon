@@ -33,6 +33,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+      - name: Update package manifest
+        env:
+          GIT_AUTHOR_NAME: github-actions
+          GIT_COMMITTER_NAME: github-actions
+          GIT_AUTHOR_EMAIL: github-actions@github.com
+          GIT_COMMITTER_EMAIL: github-actions@github.com
+        run: |
+          npm install && \
+            git add package-lock.json && \
+            git commit -m 'Update package-lock.json'
       - uses: MetaMask/action-create-release-pr@2d124c5b0bf1fb10111589cd95b6b22734ac66d3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
